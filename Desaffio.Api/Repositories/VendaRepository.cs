@@ -15,9 +15,12 @@ namespace Desaffio.Api.Repositories
         {
             var vendas = await ObterTodasAsync();
             vendas.Add(venda);
-            var json = JsonSerializer.Serialize(vendas, 
-                new JsonSerializerOptions { WriteIndented = true });
-
+            var json = JsonSerializer.Serialize(
+            vendas,
+            new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
             await File.WriteAllTextAsync(_arquivo, json);
         }
 
@@ -29,6 +32,7 @@ namespace Desaffio.Api.Repositories
             }
 
             var json = await File.ReadAllTextAsync(_arquivo);
+            Console.WriteLine(json);
 
             return JsonSerializer.Deserialize<List<Venda>>(json) ?? new List<Venda>();
 
